@@ -119,8 +119,6 @@ span.id:hover {
 <script src="js/script.js"></script>
 </body>
 </html>
-<?php 
-
 <?php
 $fp = fopen(dirname(__FILE__).'/logtest.csv', 'a');
 if (count($error))
