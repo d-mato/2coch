@@ -119,3 +119,15 @@ span.id:hover {
 <script src="js/script.js"></script>
 </body>
 </html>
+<?php 
+
+<?php
+$fp = fopen(dirname(__FILE__).'/logtest.csv', 'a');
+if (count($error))
+  $title = $error['title'];
+else
+  $title = $info['title'];
+$data = [time(), $_SERVER['REQUEST_URI'], $title, $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT']];
+fputcsv($fp, $data);
+fclose($fp);
+?>
