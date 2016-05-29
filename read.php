@@ -13,9 +13,10 @@ if(preg_match("/sm\d+/",$_GET['v'],$match)){
     $error['message'] = "動画が見つかりませんでした。。。";
     $error['title'] = "動画が見つかりませんでした。。。";
   }
-  $info = simplexml_load_string(file_get_contents("http://ext.nicovideo.jp/api/getthumbinfo/{$v}"));
 
-  if ($info->error) {
+  $info = getVideoInfo($v);
+
+  if ($info['is_deleted']) {
     $error['title'] = "削除済み動画。。。";
     $error['message'] = "動画は削除されました。。。";
   }
@@ -80,7 +81,7 @@ span.id:hover {
 <meta name="robots" content="noindex">
 <title><?=$error['title']?></title>
 <?php else:?>
-<title><?=$info->thumb->title?>のコメント</title>
+<title><?=$info['title']?>のコメント</title>
 <?php endif;?>
 </head>
 <body>
@@ -93,14 +94,14 @@ span.id:hover {
 
 
 <div id="main">
-<h1><?=$info->thumb->title?></h1>
+<h1><?=$info['title']?></h1>
 
 <?php include '_ads.html'; ?>
 
 <?php include '_form.html'; ?>
 
 <dl>
-  <dt>0：<font color=green><?=$info->thumb->user_nickname?></font>：<?=time2str($info->thumb->first_retrieve)?> ID:<?=$info->thumb->user_id?><dd><?=$info->thumb->description?><br><a href="http://www.nicovideo.jp/watch/<?=$v?>"><img src="<?=$info->thumb->thumbnail_url?>"></a></dd></dt>
+  <dt>0：<font color=green><?=$info['user_nickname']?></font>：<?=time2str($info['first_retrieve'])?> ID:<?=$info['user_id']?><dd><?=$info['description']?><br><a href="http://www.nicovideo.jp/watch/<?=$v?>"><img src="<?=$info['thumbnail_url']?>"></a></dd></dt>
 
   <?php foreach($comment_data as $c):?>
   <dt><?=$c->vpos_time?>：<font color=green>名無し</font>：<?=time2str($c->date)?> ID:<span class="id <?=$c->user_id?>"><?=$c->user_id?></span><dd><?=$c->msg?></dd></dt>
