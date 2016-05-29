@@ -76,6 +76,7 @@ span.id:hover {
   font-weight:bold;
 }
 </style>
+<script src="js/jquery-2.1.3.min.js"></script>
 
 <?php if(count($error)):?>
 <meta name="robots" content="noindex">
@@ -101,7 +102,7 @@ span.id:hover {
 <?php include '_form.html'; ?>
 
 <dl>
-  <dt>0：<font color=green><?=$info['user_nickname']?></font>：<?=time2str($info['first_retrieve'])?> ID:<?=$info['user_id']?><dd><?=$info['description']?><br><a href="http://www.nicovideo.jp/watch/<?=$v?>"><img src="<?=$info['thumbnail_url']?>"></a></dd></dt>
+  <dt>0：<font color=green><?=$info['user_nickname']?></font>：<?=time2str($info['first_retrieve'])?> ID:<?=$info['user_id']?><dd><p><?=$info['description']?></p><a href="http://www.nicovideo.jp/watch/<?=$v?>"><img src="<?=$info['thumbnail_url']?>"></a></dd></dt>
 
   <?php foreach($comment_data as $c):?>
   <dt><?=$c->vpos_time?>：<font color=green>名無し</font>：<?=time2str($c->date)?> ID:<span class="id <?=$c->user_id?>"><?=$c->user_id?></span><dd><?=$c->msg?></dd></dt>
@@ -115,7 +116,6 @@ span.id:hover {
 <?php endif;?>
 <?php include '_analytics.html'; ?>
 
-<script src="js/jquery-2.1.3.min.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>
