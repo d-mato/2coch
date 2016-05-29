@@ -1,4 +1,6 @@
 <?php
+require 'access-control.php';
+
 if(!isset($_GET['v']))header("Location: ./");
 if(empty($_GET['v']))header("Location: ./");
 
