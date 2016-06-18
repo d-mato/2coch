@@ -46,38 +46,7 @@ function time2str($time){
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta charset="utf-8">
-<style>
-body {
-  background-color:#efefef;
-}
-h1 {
-  color:red;
-  font-size:larger;
-  margin:-.5em 0 0;
-}
-#main {
-  width:100%;
-  max-width:800px;
-}
-dd {
-  margin-bottom:20px;
-}
-span.id {
-  text-decoration:underline;
-  cursor:pointer;
-}
-span.id:hover {
-  color:#888;
-}
-
-.green {
-  color:green;
-}
-.red{
-  color:red;
-  font-weight:bold;
-}
-</style>
+<link rel="stylesheet" href="css/read.css">
 <script src="js/jquery-3.0.0.min.js"></script>
 
 <?php if(count($error)):?>
@@ -91,7 +60,7 @@ span.id:hover {
 
 <?php if(count($error)):?>
 <span class="msg"><?=$error['message']?></span>
-<a href="./">トップへ戻る</a>
+<a href="/">トップへ戻る</a>
 
 <?php else:?>
 
@@ -103,11 +72,13 @@ span.id:hover {
 
 <?php include '_form.html'; ?>
 
+<nav><a href="/">トップへ戻る</a></nav>
+
 <dl>
-  <dt>0：<font color=green><?=$info['user_nickname']?></font>：<?=time2str($info['first_retrieve'])?> ID:<?=$info['user_id']?><dd><p><?=$info['description']?></p><a href="http://www.nicovideo.jp/watch/<?=$v?>"><img src="<?=$info['thumbnail_url']?>"></a></dd></dt>
+  <dt>0：<span class="name"><?=$info['user_nickname']?></span><span class="date"><?=time2str($info['first_retrieve'])?></span> ID:<?=$info['user_id']?><dd><p><?=$info['description']?></p><a href="http://www.nicovideo.jp/watch/<?=$v?>"><img src="<?=$info['thumbnail_url']?>"></a></dd></dt>
 
   <?php foreach($comment_data as $c):?>
-  <dt><?=$c->vpos_time?>：<font color=green>名無し</font>：<?=time2str($c->date)?> ID:<span class="id <?=$c->user_id?>"><?=$c->user_id?></span><dd><?=$c->msg?></dd></dt>
+  <dt><?=$c->vpos_time?>：<span class="name">名無し</span><span class="date"><?=time2str($c->date)?></span> ID:<span class="id <?=$c->user_id?>"><?=$c->user_id?></span><dd><?=$c->msg?></dd></dt>
   <?php endforeach;?>
 </dl>
 

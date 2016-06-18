@@ -35,39 +35,7 @@ function so_filter(&$xml){
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta charset="utf-8">
-<style>
-* {
-  margin;0;padding:0;
-  box-sizing:border-box;
-  font-size:15px;
-}
-body {
-  background:url('ba.gif');
-}
-#wrapper {
-  margin:0 auto;
-  width:100%;
-}
-.container {
-  border:solid 1px #000;
-  margin: 20px;
-  background-color:#cfc;
-  padding:8px;
-}
-#thread a {
-  margin:10px;
-  line-height:180%;
-}
-h1 {
-  font-size:19px;
-}
-@media(max-width: 767px){
-  .container {
-    margin:3px;
-  }
-}
-</style>
-
+<link rel="stylesheet" href="css/index.css">
 <script src="./js/jquery-3.0.0.min.js"></script>
 
 <title>2ch風ニコ動コメントビューワ 2coch</title>
@@ -78,12 +46,9 @@ h1 {
   <div class="container">
     <h1>2ch風ニコ動コメントビューワ nicovideo 2chlike comment viewer</h1>
     <p>ニコ動のコメントを２ちゃんねるっぽく表示するだけの無意味なサイト</p>
-    <p>ニコニコ動画のAPIが（ひっそりと）公開されていると知ったので、ちょっと試しに2ch風サイトを作ってみた。<br>
-    動画情報APIとコメントサーバーから各種データを取得している。<br>
-    2chで言うところのレス番にコメントが書き込まれた動画の再生位置を表示している。</p>
     <p>フォームに動画URLを入力するとコメントをスレッドっぽく表示できる。</p>
 
-    <?php include '_form.html'; ?>  
+    <?php include '_form.html'; ?>
 
   </div>
 

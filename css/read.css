@@ -1,0 +1,38 @@
+body {
+  background-color:#efefef;
+}
+h1 {
+  color:red;
+  font-size:larger;
+  margin:-.5em 0 0;
+}
+#main {
+  width:100%;
+  max-width:800px;
+}
+dd {
+  margin-bottom:20px;
+}
+span.id {
+  text-decoration:underline;
+  cursor:pointer;
+}
+span.id:hover {
+  color:#888;
+}
+.name {
+  color: green;
+  font-weight: bold;
+}
+.date {
+  margin-left: 5px;
+}
+
+.green {
+  color:green;
+}
+.red{
+  color:red;
+  font-weight:bold;
+}
+
