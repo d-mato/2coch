@@ -53,7 +53,7 @@ function time2str($time){
 <meta name="robots" content="noindex">
 <title><?=$error['title']?></title>
 <?php else:?>
-<title><?=$info['title']?>のコメント</title>
+<title><?=$info['title']?> へのコメント</title>
 <?php endif;?>
 </head>
 <body>
