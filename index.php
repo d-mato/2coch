@@ -68,7 +68,7 @@ h1 {
 }
 </style>
 
-<script src="./js/jquery-2.1.3.min.js"></script>
+<script src="./js/jquery-3.0.0.min.js"></script>
 
 <title>2ch風ニコ動コメントビューワ 2coch</title>
 </head>

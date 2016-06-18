@@ -52,14 +52,13 @@ $(function(){
   //内部リンク
   (function() {
     var info_comment_box = $('dd p')[0];
-    if (!info_comment_box) return false;
+    if (!info_comment_box) return;
     var comment = $(info_comment_box).html();
     var ids = comment.match(/sm\d+/g)
+    if (ids === null) return;
     ids.forEach(function(id) {
-      console.log(id);
       comment = comment.replace(id, '<a href="/read.php?v='+id+'">'+id+'</a>');
     });
     $(info_comment_box).html(comment);
   })();
-	
 });
