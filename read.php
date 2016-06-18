@@ -75,10 +75,15 @@ function time2str($time){
 <nav><a href="/">トップへ戻る</a></nav>
 
 <dl>
-  <dt>0：<span class="name"><?=$info['user_nickname']?></span><span class="date"><?=time2str($info['first_retrieve'])?></span> ID:<?=$info['user_id']?><dd><p><?=$info['description']?></p><a href="http://www.nicovideo.jp/watch/<?=$v?>"><img src="<?=$info['thumbnail_url']?>"></a></dd></dt>
+  <dt>0：<span class="name"><?=$info['user_nickname']?></span><span class="date"><?=time2str($info['first_retrieve'])?></span> ID:<?=$info['user_id']?></dt>
+  <dd>
+    <p><?=$info['description']?></p>
+    <a href="http://www.nicovideo.jp/watch/<?=$v?>" target="_blank"><img src="<?=$info['thumbnail_url']?>">動画閲覧ページへ飛びます</a>
+  </dd>
 
   <?php foreach($comment_data as $c):?>
-  <dt><?=$c->vpos_time?>：<span class="name">名無し</span><span class="date"><?=time2str($c->date)?></span> ID:<span class="id <?=$c->user_id?>"><?=$c->user_id?></span><dd><?=$c->msg?></dd></dt>
+  <dt><?=$c->vpos_time?>：<span class="name">名無し</span><span class="date"><?=time2str($c->date)?></span> ID:<span class="id <?=$c->user_id?>"><?=$c->user_id?></span></dt>
+  <dd><?=$c->msg?></dd>
   <?php endforeach;?>
 </dl>
 
