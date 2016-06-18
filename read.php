@@ -78,7 +78,7 @@ span.id:hover {
   font-weight:bold;
 }
 </style>
-<script src="js/jquery-2.1.3.min.js"></script>
+<script src="js/jquery-3.0.0.min.js"></script>
 
 <?php if(count($error)):?>
 <meta name="robots" content="noindex">
@@ -117,6 +117,7 @@ span.id:hover {
 
 <?php endif;?>
 <?php include '_analytics.html'; ?>
+<?php include '_contact.html'; ?>
 
 <script src="js/script.js"></script>
 </body>

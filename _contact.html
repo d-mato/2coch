@@ -1,0 +1,82 @@
+<style>
+#contact-box {
+  position: fixed;
+  width: 300px;
+  bottom: 20px;
+  right: 20px;
+}
+#contact-box.minimized form{
+  display: none;
+}
+#contact-box .close {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  top: -30px;
+  right: 0;
+}
+#contact-box .close:before {
+  content: '-';
+}
+#contact-box.minimized .close:before {
+  content: '+';
+}
+#contact-box textarea {
+  width: 100%;
+  height: 70px;
+}
+#contact-box [type=submit] {
+  width: 100%;
+}
+#contact-box .notice {
+  display: none;
+}
+#contact-box .notice.show {
+  display: block;
+}
+</style>
+
+<script>
+$(function() {
+  var $form = $('#contact-box form');
+  var $contact_box = $('#contact-box');
+
+  $('#contact-box .close').click(function() {
+    if ($contact_box.hasClass('minimized'))
+      $contact_box.removeClass('minimized');
+    else
+      $contact_box.addClass('minimized');
+  });
+    
+  $form.submit(function(e) {
+    e.preventDefault();
+    var $textarea = $('textarea' ,this);
+    var $notice = $('#contact-box .notice');
+    var $button = $('#contact-box [type=submit]');
+
+    var msg = $textarea.val().trim();
+    if (msg === '') return false;
+
+    $textarea.val('');
+    $notice.text('ありがとうございました！').addClass('show');
+    $button.prop('disabled', true);
+    setTimeout(function() {
+      $notice.removeClass('show');
+      $button.prop('disabled', false);
+    }, 3000);
+
+    $.post('/contact.php', {msg: msg}, function(res) {
+      //console.log(res);
+    });
+  });
+});
+</script>
+
+<div id="contact-box">
+  <button class="close"></button>
+  <div class="notice"></div>
+  <form>
+    <textarea placeholder="ご意見はこちらへ！"></textarea>
+    <button type="submit">送信</button>
+  </form>
+</div>
