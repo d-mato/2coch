@@ -10,44 +10,37 @@ $(function(){
 		}
 	});
   $('span.id').each(function(){
-    var id = $(this).text();
-    var span = $('<span class="count">')
-      .html('('+($('span.'+id).index($(this))+1)+'/'+id_list[id]+')')
-      .insertAfter($(this));
-    if(parseInt(id_list[id])>9){
-      $(this).addClass('red');
-    }else if(parseInt(id_list[id])>3){
-      $(this).addClass('green');
+    var $span = $(this);
+    var id = $span.text();
+    var total_count = parseInt(id_list[id]);
+    $('<span class="count">')
+      .html('('+($('span.'+id).index($span)+1)+'/'+total_count+')')
+      .insertAfter($span);
+    if(total_count > 9){
+      $span.addClass('red');
+    }else if(total_count > 3){
+      $span.addClass('green');
     }
   })
 
-	var comment_box = $('<div>').css({
-		display:'none',
-		position:'absolute',
-		width:'700px',
-		backgroundColor:'#ddd',
-		border:'solid 1px #fff',
-		padding:'5px',
-	}).appendTo($('body'));
-
+  var comment_box = $('<div class="comment_box"/>').appendTo(document.body);
 	$('span.id').click(function(e){
 		var id = $(this).text();
 		comment_box.html('');
 		$('span.'+id).each(function(){
-			comment_box.append($(this).parent().clone());
-			comment_box.append($(this).parent().next().clone());
+      comment_box.append($(this).parent().clone());
+      comment_box.append($(this).parent().next().clone());
 		});
 		comment_box.css({
 			top:e.pageY+'px',
 			left:e.pageX+'px',
-			display:'block',
-		});
+		}).addClass('show');
 		e.stopPropagation();
 	});
 
-	$('body').click(function(){
-		comment_box.hide();
-	});
+  $(document.body).click(function(){
+    comment_box.removeClass('show');
+  });
 
   //内部リンク
   (function() {
