@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-if (!isset($_POST['msg']) || trim($_POST['msg']) === '') {
+if (!isset($_POST['msg']) || trim($_POST['msg']) === '' || !preg_match("/[(ぁ-ん)(ァ-ヴ)]/u", $_POST['msg'])) {
   http_response_code(400);
   exit(json_encode(['success' => false]));
 }
