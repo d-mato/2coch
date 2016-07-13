@@ -99,7 +99,7 @@ function time2str($time){
 </body>
 </html>
 <?php
-$fp = fopen(dirname(__FILE__).'/logtest.csv', 'a');
+$fp = fopen(dirname(__FILE__).'/secret/access.log', 'a');
 if (count($error))
   $title = $error['title'];
 else

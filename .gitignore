@@ -1,5 +1,4 @@
-cookie*
 .*.swp
-*.db
-*.csv
-*.log
+secret/*
+db/*
+!.gitkeep

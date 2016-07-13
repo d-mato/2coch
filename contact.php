@@ -6,7 +6,7 @@ if (!isset($_POST['msg']) || trim($_POST['msg']) === '' || !preg_match("/[(„ÅÅ-„
 }
 
 $msg = str_replace(["\r\n", "\n", "\r"], "<br>", $_POST['msg']);
-$fp = fopen(dirname(__FILE__).'/contacts.csv', 'a');
+$fp = fopen(dirname(__FILE__).'/secret/contacts.csv', 'a');
 $data = [time(),$msg, $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $_SERVER["HTTP_REFERER"]];
 fputcsv($fp, $data);
 fclose($fp);

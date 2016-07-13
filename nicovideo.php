@@ -1,5 +1,5 @@
 <?php
-$fp = fopen(dirname(__FILE__).'/accounts.csv', 'r');
+$fp = fopen(dirname(__FILE__).'/secret/accounts.csv', 'r');
 $Accounts = [];
 while(($csv = fgetcsv($fp)) !== false) {
   $Accounts[] = ['mail' => trim($csv[0]), 'password' => trim($csv[1])];
@@ -7,7 +7,7 @@ while(($csv = fgetcsv($fp)) !== false) {
 fclose($fp);
 
 function err($msg) {
-  $fp = fopen(dirname(__FILE__).'/error.log', 'a');
+  $fp = fopen(dirname(__FILE__).'/secret/error.log', 'a');
   fputcsv($fp, [time(), $msg]);
   fclose($fp);
 }
@@ -27,7 +27,7 @@ class Nicovideo{
 
   function __construct(){
     $this->change_account();
-    $cookie_file = dirname(__FILE__)."/cookie_{$this->account['id']}";
+    $cookie_file = dirname(__FILE__)."/secret/cookie_{$this->account['id']}";
     $ch = curl_init();
     curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
     curl_setopt($ch,CURLOPT_COOKIEFILE,$cookie_file);
@@ -58,7 +58,7 @@ class Nicovideo{
 
     $res = curl_exec($ch);
     err("login: {mail: `$mail`, password: `$password`}");
-    $fp = fopen(dirname(__FILE__).'/login_history.csv', 'a');
+    $fp = fopen(dirname(__FILE__).'/secret/login_history.log', 'a');
     fputcsv($fp, [time(), $mail]);
     fclose($fp);
   }
