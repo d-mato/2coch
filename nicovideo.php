@@ -2,10 +2,15 @@
 $fp = fopen(dirname(__FILE__).'/accounts.csv', 'r');
 $Accounts = [];
 while(($csv = fgetcsv($fp)) !== false) {
-  $csv = str_getcsv($line);
-  $Accounts[] = ['mail' => $csv[0], 'password' => $csv[1]];
+  $Accounts[] = ['mail' => trim($csv[0]), 'password' => trim($csv[1])];
 }
 fclose($fp);
+
+function err($msg) {
+  $fp = fopen(dirname(__FILE__).'/error.log', 'a');
+  fputcsv($fp, [time(), $msg]);
+  fclose($fp);
+}
 
 class Nicovideo{
   var $ch,$info;
@@ -27,6 +32,17 @@ class Nicovideo{
     curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
     curl_setopt($ch,CURLOPT_COOKIEFILE,$cookie_file);
     curl_setopt($ch,CURLOPT_COOKIEJAR,$cookie_file);
+
+    //CA証明書の検証をしない
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36");
+
+    // リダイレクト設定
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    // 最大何回リダイレクトをたどるか
+    curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
+    // リダイレクトの際にヘッダのRefererを自動的に追加させる
+    curl_setopt($ch, CURLOPT_AUTOREFERER, true);
     $this->ch = $ch;
   }
 
@@ -39,7 +55,9 @@ class Nicovideo{
     curl_setopt($ch,CURLOPT_URL,"https://secure.nicovideo.jp/secure/login");
     curl_setopt($ch,CURLOPT_POST,1);
     curl_setopt($ch,CURLOPT_POSTFIELDS,"mail_tel={$mail}&password={$password}");
-    curl_exec($ch);
+
+    $res = curl_exec($ch);
+    err("login: {mail: `$mail`, password: `$password`}");
     $fp = fopen(dirname(__FILE__).'/login_history.csv', 'a');
     fputcsv($fp, [time(), $mail]);
     fclose($fp);
@@ -53,6 +71,7 @@ class Nicovideo{
 
     /* cookieが無効の場合一度ログイン処理を行う */
     if(preg_match("/closed=1/",$result)){
+      err('load_ms_info: closed=1, retry');
       $this->change_account();
       $this->login();
       curl_setopt($ch,CURLOPT_URL,"http://flapi.nicovideo.jp/api/getflv/{$v}");
@@ -70,7 +89,10 @@ class Nicovideo{
    * キャッシュ化から時間がたったものは再取得する
    */
   function get_comment($v){
-    if(!$this->load_ms_info($v))return false;
+    if (!$this->load_ms_info($v)) {
+      err('load_ms_info: false');
+      return false;
+    }
 
     $ch = $this->ch;
     $url = $this->info['ms']."thread?version=20090904&thread={$this->info['thread_id']}&res_from=-1000";
@@ -80,7 +102,10 @@ class Nicovideo{
 
     $result = curl_exec($ch);
     // echo "<textarea>".$result."</textarea>";
-    if(!preg_match("/^</", $result)) return false;
+    if (!preg_match("/^</", $result)) {
+      err('comment api: invalid data');
+      return false;
+    }
     $xml = @simplexml_load_string($result);
 
     $comment_data = array();

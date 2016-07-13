@@ -2,3 +2,4 @@ cookie*
 .*.swp
 *.db
 *.csv
+*.log
