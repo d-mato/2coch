@@ -107,6 +107,7 @@ class Nicovideo{
       return false;
     }
     $xml = @simplexml_load_string($result);
+    @file_put_contents(dirname(__FILE__).'/comments/'.$this->info['thread_id'].'.xml', $result);
 
     $comment_data = array();
     $vpos_data = array();
