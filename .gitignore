@@ -2,3 +2,4 @@
 secret/*
 db/*
 !.gitkeep
+comments/
