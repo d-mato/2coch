@@ -22,13 +22,9 @@ var fetch_contacts = function() {
   var r = $.get('/admin/api.php?contacts');
   r.done(function(json) {
     $('#loading').removeClass('show');
+    var tmpl = _.template('<tr><td><%- date %></td><td><%- comment %></td><td><%- ip_addr %></td></tr>');
     var tbody = json.map(function(contact) {
-      var row = '<tr>'
-        +'<td>'+contact.date+'</td>'
-        +'<td>'+contact.comment+'</td>'
-        +'<td>'+contact.ip_addr+'</td>'
-        +'</tr>';
-      return row;
+      return tmpl(contact).replace(/&lt;br&gt;/g, '<br>');
     }).join('');
     $('.contacts tbody').html(tbody);
     $('.contacts').addClass('loaded');
