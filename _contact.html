@@ -14,6 +14,12 @@
   width: 30px;
   top: -30px;
   right: 0;
+  border: none;
+  cursor: pointer;
+  color: #888;
+  background-color: #ddd;
+  line-height: 30px;
+  text-align: center;
 }
 #contact-box .close:before {
   content: '-';
@@ -42,10 +48,7 @@ $(function() {
   var $contact_box = $('#contact-box');
 
   $('#contact-box .close').click(function() {
-    if ($contact_box.hasClass('minimized'))
-      $contact_box.removeClass('minimized');
-    else
-      $contact_box.addClass('minimized');
+    $contact_box.toggleClass('minimized');
   });
 
   $form.submit(function(e) {
@@ -73,7 +76,7 @@ $(function() {
 </script>
 
 <div id="contact-box">
-  <button class="close"></button>
+  <span class="close"></span>
   <div class="notice"></div>
   <form>
     <textarea placeholder="当サイト管理者へのご意見はこちらへ！"></textarea>

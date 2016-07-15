@@ -3,27 +3,22 @@
 <head>
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <style>
-.contacts {
-  table-layout: fixed;
-  display: none;
-}
-.contacts.loaded {
-  display: table;
-}
-.contacts th:nth-child(1) {width: 140px;}
-/* th:nth-child(2) {width: 300px;} */
-.contacts th:nth-child(3) {width: 150px;}
-.contacts td {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-#loading {display: none;}
-#loading.show {display: block;}
+  .hidden {display: none !important;}
+  .contacts {
+    table-layout: fixed;
+  }
+  .contacts th:nth-child(1) {width: 140px;}
+  .contacts th:nth-child(3) {width: 150px;}
+  .contacts td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #loading {}
 </style>
 </head>
 <body>
   <div class="container">
-    <table class="table table-striped contacts">
+    <table class="table table-striped contacts hidden">
       <thead class="thead-inverse">
         <tr><th>Date</th><th>Comment</th><th>IP Aaddress</th></tr>
       </thead>
@@ -34,7 +29,7 @@
   <form class="login-form">
     <input name="pass" type="password">
   </form>
-  <div id="loading" class="">
+  <div id="loading" class="hidden">
     loading...
   </div>
   <script src="/js/jquery-3.0.0.min.js"></script>
