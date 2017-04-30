@@ -68,8 +68,6 @@ function time2str($time){
 <div id="main">
 <h1><?=$info['title']?></h1>
 
-<?php include '_ads.html'; ?>
-
 <?php include '_form.html'; ?>
 
 <nav><a href="/">トップへ戻る</a></nav>
@@ -81,13 +79,14 @@ function time2str($time){
     <a href="http://www.nicovideo.jp/watch/<?=$v?>" target="_blank"><img src="<?=$info['thumbnail_url']?>">動画閲覧ページへ飛びます</a>
   </dd>
 
-  <?php foreach($comment_data as $c):?>
-  <dt><?=$c->vpos_time?>：<span class="name">名無し</span><span class="date"><?=time2str($c->date)?></span> ID:<span class="id <?=$c->user_id?>"><?=$c->user_id?></span></dt>
-  <dd><?=$c->msg?></dd>
+  <?php foreach($comment_data as $i => $c):?>
+    <dt><?=$c->vpos_time?>：<span class="name">名無し</span><span class="date"><?=time2str($c->date)?></span> ID:<span class="id <?=$c->user_id?>"><?=$c->user_id?></span></dt>
+    <?php if(!preg_match("/アドセンス|ｱﾄﾞｾﾝｽ|クリック|ｸﾘｯｸ/", $c->msg)): ?>
+      <dd><?=$c->msg?></dd>
+    <?php endif; ?>
+    <?php if ($i % 100 == 0): ?><?php include '_ads.html'; ?><?php endif; ?>
   <?php endforeach;?>
 </dl>
-
-<?php include '_ads.html'; ?>
 
 </div>
 
@@ -96,6 +95,13 @@ function time2str($time){
 <?php include '_contact.html'; ?>
 
 <script src="js/script.js"></script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: "ca-pub-2218764024745094",
+    enable_page_level_ads: true
+});
+</script>
 </body>
 </html>
 <?php
