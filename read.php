@@ -7,20 +7,28 @@ if(empty($_GET['v']))header("Location: ./");
 $error = [];
 if(preg_match("/sm\d+/",$_GET['v'],$match)){
   $v = $match[0];
-  require_once 'nicovideo.php';
 
-  $nv = new Nicovideo();
-  $comment_data = $nv->get_comment($v);
-  if(!$comment_data){
-    $error['message'] = "動画が見つかりませんでした。。。";
-    $error['title'] = "動画が見つかりませんでした。。。";
-  }
+  require_once 'check_forbidden.php';
+  if (!check_forbidden($v)) {
+    $error['title'] = '禁止されています';
+    $error['message'] = 'このページへのアクセスは禁止されています';
 
-  $info = getVideoInfo($v);
+  } else {
+    require_once 'nicovideo.php';
 
-  if ($info['is_deleted']) {
-    $error['title'] = "削除済み動画。。。";
-    $error['message'] = "動画は削除されました。。。";
+    $nv = new Nicovideo();
+    $comment_data = $nv->get_comment($v);
+    if(!$comment_data){
+      $error['title'] = "動画が見つかりませんでした。。。";
+      $error['message'] = "動画が見つかりませんでした。。。";
+    }
+
+    $info = getVideoInfo($v);
+
+    if ($info['is_deleted']) {
+      $error['title'] = "削除済み動画。。。";
+      $error['message'] = "動画は削除されました。。。";
+    }
   }
 
 }else{
